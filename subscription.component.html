@@ -1,0 +1,66 @@
+<form #subscribeForm="ngForm" (ngSubmit)="onSubmit(subscribeForm.form)"> 
+<div class="form-group">
+    <label for="name">Name</label>
+    <input
+        ngControl="name"
+        #name="ngForm"
+        id="name" 
+        type="text" 
+        class="form-control"
+        required
+        minlength=3>
+        <div *ngIf="name.touched && name.errors">
+            <div class="alert alert-danger" *ngIf="name.errors.required">
+                Name is required field.
+            </div>
+            <div class="alert alert-danger" *ngIf="name.errors.minlength">
+                Name should have atleast {{name.errors.minlength.requiredLength}} characters.
+            </div>
+        </div>
+</div> 
+<div class="form-group">
+    <label for="email">Email</label>
+    <input 
+        ngControl="email"
+        #email="ngForm"
+        id="email" 
+        type="text" 
+        class="form-control"
+        required
+        minlength=3>
+        <div *ngIf="email.touched && email.errors">
+            <div class="alert alert-danger" *ngIf="email.errors.required">
+                Email is required field.
+            </div>
+            <div class="alert alert-danger" *ngIf="email.errors.minlength">
+                Email should have atleast {{email.errors.minlength.requiredLength}} characters.
+            </div>
+        </div>
+</div> 
+<div class="form-group">
+        <label for="frequency">Frequency of emails</label>
+        <select
+            ngControl="frequency" 
+            #frequency="ngForm" 
+            id="frequency" 
+            class="form-control" 
+            required>
+            <option value=""></option>
+            <option *ngFor="#frequency of frequencies">
+                {{ frequency.label }}
+            </option>
+        </select> 
+        <div 
+            class="alert alert-danger" 
+            *ngIf="frequency.touched && !frequency.valid">
+            This field is required.
+        </div>
+    </div>
+  <div>
+    <button class="btn btn-primary" 
+          type="submit"
+          [disabled]="!subscribeForm.valid">
+          Subscribe
+    </button>
+</div>
+</form>
